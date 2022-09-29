@@ -1,6 +1,4 @@
-
-
-#this sets up MITM
+# MITM Setup
  sudo forever -al /home/student/mitm_logs/con.log start /home/student/MITM/mitm.js -n "$CON" -i "$IP" -p 25 --auto-access --auto-access-fixed 2 --debug
 
 hostip=172.30.138.61
