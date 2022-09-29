@@ -32,5 +32,9 @@ iptables --table nat --insert POSTROUTING --source $ip --destination 0.0.0.0/0
 --jump SNAT --to-source $2
 fi
 
+#Copy iptables rules from prev. cycle into container and restore
+cp ip_rules_$name.log /var/lib/lxc/$name/rootfs/etc/iptables/rules.v4
+sudo lxc-attach -n $name -- bash -c "sudo /sbin/iptables-restore < /etc/iptables/rules.v4"
+
 #Edit sshd_config to allow root login and block multiple connections
 sudo lxc-attach -n "$1" -- bash -c "cd /etc/ssh && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' sshd_config && sed -i 's/#MaxSessions/MaxSessions 1/g' sshd_config && sed -i 's/#MaxStartups/MaxStartups 1/g' sshd_config && sudo systemctl restart ssh.service"
