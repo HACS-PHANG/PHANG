@@ -2,7 +2,7 @@
 atkip= $(who | head -n 1 | awk '{ print $5 }')
 iptables -I INPUT -s $1 -j DROP
 #Crontab to remove attacker's connection after 20 mins
-
+sudo lxc-attach -n $name -- bash -c "sudo crontab -e && 1 && */20 * * * * pkill -KILL -u $user" 
 
 #Save iptables on container's filesystem
 sudo /sbin/iptables-save > /etc/iptables/rules.v4
