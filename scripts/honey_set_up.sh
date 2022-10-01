@@ -1,3 +1,4 @@
 #Set up honey
-sudo lxc-attach -n $1 -- bash -c "echo 'example text' > employee_records.csv"
-# can we do cp of file from vm to container? if we do curl we need it up somewhere
+
+#!/bin/bash
+sudo cp -r ~/honey_example.csv /var/lib/lxc/"$1"/rootfs/usr/employee_records.csv
