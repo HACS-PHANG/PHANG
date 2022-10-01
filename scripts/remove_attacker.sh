@@ -8,5 +8,3 @@ sudo lxc-attach -n $name -- bash -c "sudo crontab -e && 1 && */20 * * * * pkill 
 sudo /sbin/iptables-save > /etc/iptables/rules.v4
 #Access container's filesystem from host & save 
 cp /var/lib/lxc/$name/rootfs/etc/iptables/rules.v4 ip_rules_$name.log
-#Destroy container
-lxc-destroy-n $name
