@@ -38,3 +38,5 @@ sudo lxc-attach -n $name -- bash -c "sudo /sbin/iptables-restore < /etc/iptables
 
 #Edit sshd_config to allow root login and block multiple connections
 sudo lxc-attach -n "$1" -- bash -c "cd /etc/ssh && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' sshd_config && sed -i 's/#MaxSessions/MaxSessions 1/g' sshd_config && sed -i 's/#MaxStartups/MaxStartups 1/g' sshd_config && sudo systemctl restart ssh.service"
+
+sudo sysctl -w net.ipv4.conf.all.route_localnet=1
