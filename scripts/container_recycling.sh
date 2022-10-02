@@ -2,6 +2,7 @@
 
 
 # cleanup + data gathering off of old container
+./data_upload $container_name
 
 # delete old container
 
