@@ -10,7 +10,7 @@ cd log_files
 # Copy all files in secret folder (all files that are downloaded by attacker
 #and stored in this folder by command poisoning script) into local folder
 #to be analyzed by virustotal
-cp /var/lib/lxc/$containername/rootfs/var/log/.downloads ~/containerdownloads/$containername
+cp /var/lib/lxc/$name/rootfs/var/log/.downloads ~/containerdownloads/$name
 
 # Copy all the files from the lxc container into current location in git repo
 cp /var/lib/lxc/$name .
