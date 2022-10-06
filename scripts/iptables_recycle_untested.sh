@@ -1,7 +1,22 @@
 #Call this script from the host w/ container name as arg 1, IP to be used as arg 2
 name=$1
-
 ip=$(lxc-info -n $name | grep IP | colrm 1 16)
+
+sudo sysctl -w net.ipv4.conf.all.route_localnet=1
+
+sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination "$2"
+--jump DNAT --to-destination "$ip"
+sudo iptables --table nat --insert POSTROUTING --source "$ip" --destination 0.0.0.0/0
+--jump SNAT --to-source "$2"
+sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination "$2"
+--protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:30
+#Install openssh-server on container
+sudo lxc-attach -n "$1" -- bash -c "sudo apt-get update -qq && sudo apt-get install
+openssh-server -y -qq && sudo systemctl enable ssh && sudo systemctl start ssh"
+#Install ACES MITM server on lxc host
+git clone https://github.com/UMD-ACES/MITM
+cd ./MITM || return
+sudo ./install.sh
 
 forever -l /home/student/MITM/$name.log start /home/student/MITM/mitm.js -n $name -i
 $ip -p 12345 --auto-access --auto-access-fixed 2 --debug
@@ -38,8 +53,6 @@ sudo lxc-attach -n $name -- bash -c "sudo /sbin/iptables-restore < /etc/iptables
 
 #Edit sshd_config to allow root login and block multiple connections
 sudo lxc-attach -n "$1" -- bash -c "cd /etc/ssh && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' sshd_config && sed -i 's/#MaxSessions/MaxSessions 1/g' sshd_config && sed -i 's/#MaxStartups/MaxStartups 1/g' sshd_config && sudo systemctl restart ssh.service"
-
-sudo sysctl -w net.ipv4.conf.all.route_localnet=1
 
 #Crontab to remove attacker's connection after 20 mins
 sudo lxc-attach -n $name -- bash -c "sudo crontab -e && 1 && */20 * * * * pkill -KILL -u $user"
