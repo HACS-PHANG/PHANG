@@ -1,15 +1,22 @@
 #!/bin/bash -e
 name=$1
 
-# Move into the honeypot_files directory
-cd honeypot_files/$name
+# Move into the honeypot_files directory and create dir for this honeypot
+cd honeypot_files/
+mkdir $name
+cd $name/
+
+# Make directory for all downloads
+mkdir ./containerdownloads/
 
 # Copy all files in secret folder (all files that are downloaded by attacker
 # and stored in this folder by command poisoning script) into git repo
 # to be analyzed by virustotal
-cp /var/lib/lxc/$name/rootfs/var/log/.downloads ./containerdownloads/
-cp /home/student/MITM/$name.log ./mitmlogs/
-cp /var/lib/lxc/$name/var/log/auth.log ./authlogs/
+cp -r /var/lib/lxc/$name/rootfs/var/log/.downloads ./containerdownloads/
+
+# Copy mitm and auth logs into current directory
+cp /home/student/MITM/$name.log ./
+cp /var/lib/lxc/$name/var/log/auth.log ./
 
 
 # Add, commit, and push all changes to github
