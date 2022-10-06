@@ -11,7 +11,7 @@ aws_ip=$2
 ./data_upload $container_name
 
 # delete old container
-lxc-destroy -n $container_name
+./delete_container $container_name
 
 # create new container
 ./create_container $container_name
