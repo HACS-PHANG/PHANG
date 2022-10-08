@@ -1,5 +1,5 @@
 #!/bin/bash 
-# Install boto3 and python3
+# Install boto3 and python3 if not installed already
 #sudo apt-get install python3
 #python -m pip install boto3
 
