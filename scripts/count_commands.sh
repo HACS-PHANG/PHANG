@@ -1,4 +1,5 @@
 #!/bin/bash 
+
 echo "Pure Information Gathering:" >> /home/student/container_reports/$name
 echo "number of ls commands: $("grep -c ls /home/mitm/session_logs/$name") >> /home/student/container_reports/$name
 echo "number of cd commands: $("grep -c cd /home/mitm/session_logs/$name") >> /home/student/container_reports/$name
