@@ -1,5 +1,5 @@
 #Add attacker's ip to iptables
-atkip= $(sudo lxc-attach -n $name -- bash -c "who | head -n 1 | awk '{ print $5 }'")
+atkip= $(sudo lxc-attach -n $name -- bash -c "who | head -n 1 | awk '{ print $5 }' | sed 's/^.//;s/.$//'")
 sudo lxc-attach -n $name -- bash -c "iptables -I INPUT -s $1 -j DROP"
 
 #Save iptables on container's filesystem
