@@ -3,6 +3,7 @@ name=$1
 ip=$(lxc-info -n $name | grep IP | colrm 1 16)
 
 sudo sysctl -w net.ipv4.conf.all.route_localnet=1
+sudo sysctl -w net.ipv4.ip_forward=1
 
 sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination "$2"
 --jump DNAT --to-destination "$ip"
