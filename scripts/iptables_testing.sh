@@ -13,9 +13,12 @@ external_ip=$2
 port=12345
 log_folder="mitm_logs"
 
+sudo sysctl -w net.ipv4.conf.all.route_localnet=1
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo npm forever -g
+
 # Starts background mitm server
 sudo forever -l /home/helen/scripts/MITM/$log_folder/$name.log --append start /home/helen/scripts/MITM/mitm.js -n $name -i $ip -p $port --auto-access --auto-access-fixed 3 --debug
-
 
 # Configures nat mappings
 sudo ip addr add $external_ip/32 brd + dev enp4s2
