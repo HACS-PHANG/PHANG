@@ -12,7 +12,9 @@ ip=$(sudo lxc-info -n $name -iH)
 external_ip=$2
 port=$3
 
-
+# stop forever
+id=$(sudo forever list 2>/dev/null | grep $port | head -n 1 | tr -s " " | cut -d" " -f2 | tr -d "[|]")
+sudo forever stop $id
 
 # Configures nat mappings
 sudo ip addr del $external_ip/32 brd + dev enp4s2
