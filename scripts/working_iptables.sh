@@ -11,7 +11,8 @@ name=$1
 ip=$(sudo lxc-info -n $name -iH)
 external_ip=$2
 port=$3
-mitm_path="/home/helen/scripts/MITM"
+bannertype=$4 #will either be "nobanner" or "banner"
+mitm_path="/home/student/$bannertype/$name"
 
 sudo ip link set enp4s2 up
 sudo sysctl -w net.ipv4.conf.all.route_localnet=1
@@ -20,8 +21,8 @@ sudo sysctl -w net.ipv4.ip_forward=1
 
 
 # Starts background mitm server
-sudo forever -l $mitm_path/mitm_logs/$name.log --append start $mitm_path/mitm.js -n $name -i $ip -p $port --auto-access --auto-access-fixed 3 --debug
-
+sudo forever -l $mitm_path/$name.log --append start $mitm_path/mitm.js -n $name -i $ip -p $port --auto-access --auto-access-fixed 3 --debug
+#anything with .log is an mitm log.
 
 # Configures nat mappings
 sudo ip addr add $external_ip/32 brd + dev enp4s2
