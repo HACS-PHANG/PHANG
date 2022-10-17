@@ -2,7 +2,7 @@
 
 # Initializing these now as arguments but might need to update
 container_name=$1
-aws_ip=$2
+external_ip=$2
 
 # remove attacker
 ./remove_attacker $container_name

@@ -7,10 +7,9 @@ sudo sysctl -w net.ipv4.ip_forward=1
 
 sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination "$2" --jump DNAT --to-destination "$ip"
 sudo iptables --table nat --insert POSTROUTING --source "$ip" --destination 0.0.0.0/0 --jump SNAT --to-source "$2"
-sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination "$2" -protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:30
+sudo iptables --table nat --insert PREROUTING --source 0.0.0.0/0 --destination "$2" --protocol tcp --dport 22 --jump DNAT --to-destination 127.0.0.1:30
 #Install openssh-server on container
-sudo lxc-attach -n "$1" -- bash -c "sudo apt-get update -qq && sudo apt-get install
-openssh-server -y -qq && sudo systemctl enable ssh && sudo systemctl start ssh"
+sudo lxc-attach -n "$1" -- bash -c "sudo apt-get update -qq && sudo apt-get install openssh-server -y -qq && sudo systemctl enable ssh && sudo systemctl start ssh"
 #Install ACES MITM server on lxc host
 git clone https://github.com/UMD-ACES/MITM
 cd ./MITM || return
