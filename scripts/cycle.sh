@@ -29,6 +29,6 @@ do
 	sleep 1
 end
 sudo lxc-attach -n $name -- bash -c "(sudo crontab -l 2>/dev/null; echo '20 * * * * /usr/bin/pkill -KILL -u $user') | sudo crontab -"
-(sudo crontab -l 2>/dev/null; echo "*20 * * * * ./remove_attacker $container_name && ./data_upload $container_name && lxc-destroy -n $container_name") | sudo crontab -
+(sudo crontab -l 2>/dev/null; echo "*20 * * * * ./remove_attacker $container_name && ./data_upload $container_name && ./count_commands $container_name && sudo lxc-stop -n $container_name && sudo lxc-destroy -n $container_name") | sudo crontab -
 
 end
