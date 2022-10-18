@@ -8,12 +8,12 @@ then
 fi
 
 # Initializing these now as arguments but might need to update
-container_name_init=$1
+container_name=$1
 ext_ip=$2
 banner_type=$3 # nobanner or banner
 port=$4
 timestamp=$(date +%s)
-container_name="${container_name_init}${timestamp}"
+#container_name="${container_name_init}${timestamp}"
 ips_file="ext_ip.txt"
 #cd /home/student/PHANG/scripts <-- need to figure out
 
@@ -37,9 +37,9 @@ echo "================================================= end of working iptables"
 
 
 # set up banner + honey
-if [ $banner_type == "banner" ]
+if [ $banner_type != "nobanner" ]
 then
-./banner.sh $container_name
+./banner.sh $container_name $banner_type
 fi
 ./honey_set_up.sh $container_name
 echo "Success"
@@ -55,7 +55,7 @@ echo "Success"
 #(sudo crontab -l 2>/dev/null; echo "*20 * * * * ./remove_attacker $container_name && ./data_upload $container_name && ./count_commands $container_name $banner_type && sudo lxc-stop -n $container_name && sudo lxc-destroy -n $container_name && ./cycle.sh $name 128.8.238.32 $banner_type") | sudo crontab -e
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
-./remove_iptables $container_name $ext_ip $port
-sudo cp -r /var/lib/lxc/$name/rootfs/var/log/.downloads /home/student/$banner_type/$name/downloads
-sudo lxc-stop -n $container_name
-sudo lxc-destroy -n $container_name
+#./remove_iptables $container_name $ext_ip $port
+#sudo cp -r /var/lib/lxc/$name/rootfs/var/log/.downloads /home/student/$banner_type/$name/downloads
+#sudo lxc-stop -n $container_name
+#sudo lxc-destroy -n $container_name
