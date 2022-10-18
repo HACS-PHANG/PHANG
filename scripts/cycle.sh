@@ -12,9 +12,7 @@ container_name=$1
 ext_ip=$2
 banner_type=$3 # nobanner or banner
 port=$4
-timestamp=$(date +%s)
 #container_name="${container_name_init}${timestamp}"
-ips_file="ext_ip.txt"
 #cd /home/student/PHANG/scripts <-- need to figure out
 
 # create new container
@@ -37,7 +35,7 @@ echo "================================================= end of working iptables"
 
 
 # set up banner + honey
-if [ $banner_type != "nobanner" ]
+if [ $banner_type != "NoBanner" ]
 then
 ./banner.sh $container_name $banner_type
 fi

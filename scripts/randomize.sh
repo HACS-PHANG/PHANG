@@ -22,50 +22,61 @@ container_name_3="cont3"
 container_name_4="cont4"
 container_name_5="cont5"
 
-timestamp=$(date +%s)
+timestamp=$(date +"%Y-%m-%d-%T")
 cont1="${container_name_1}${timestamp}"
 cont2="${container_name_2}${timestamp}"
 cont3="${container_name_3}${timestamp}"
 cont4="${container_name_4}${timestamp}"
 cont5="${container_name_5}${timestamp}"
 
+banner1="FBI"
+banner2="MarylandPolice"
+banner3="UMD_IT"
+banner4="NoEntity"
+banner5="NoBanner"
+
 # recycle all containers and pass in new ip
-./cycle.sh $ip1 $ip1 "FBI"
+./cycle.sh $ip1 $ip1 $banner1
 #"by the Federal Bureau of Investigations"
-./cycle.sh $ip2 $ip2 "MarylandPolice" 
+./cycle.sh $ip2 $ip2 $banner2
 #"by the Maryland State Police IT Division" 
-./cycle.sh $ip3 $ip3 "UMD_IT" 
+./cycle.sh $ip3 $ip3 $banner3 
 #"by the University of Maryland Department of IT" 
-./cycle.sh $ip4 $ip4 "NoEntity" 
-./cycle.sh $ip5 $ip5 "nobanner"
+./cycle.sh $ip4 $ip4 $banner4
+./cycle.sh $ip5 $ip5 $banner5
 
 sleep 5m
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables $cont1 $ip1 $port1
-sudo cp -r /var/lib/lxc/$cont1/rootfs/var/log/.downloads /home/student/$banner_type/$cont1/downloads
+sudo cp -r /var/lib/lxc/$cont1/rootfs/var/log/.downloads /home/student/$banner1/$cont1/downloads
+./data_collection/count_commands $cont1 $banner1
 sudo lxc-stop -n $cont1
 sudo lxc-destroy -n $cont1
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables $cont2 $ip2 $port2
-sudo cp -r /var/lib/lxc/$cont2/rootfs/var/log/.downloads /home/student/$banner_type/$cont2/downloads
+./data_collection/count_commands $cont2 $banner_2
+sudo cp -r /var/lib/lxc/$cont2/rootfs/var/log/.downloads /home/student/$banner2/$cont2/downloads
 sudo lxc-stop -n $cont2
 sudo lxc-destroy -n $cont2
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables $cont3 $ip3 $port3
-sudo cp -r /var/lib/lxc/$cont3/rootfs/var/log/.downloads /home/student/$banner_type/$cont3/downloads
+./data_collection/count_commands $cont3 $banner3
+sudo cp -r /var/lib/lxc/$cont3/rootfs/var/log/.downloads /home/student/$banner3/$cont3/downloads
 sudo lxc-stop -n $cont3
 sudo lxc-destroy -n $cont3
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables $cont4 $ip4 $port4
-sudo cp -r /var/lib/lxc/$cont4/rootfs/var/log/.downloads /home/student/$banner_type/$cont4/downloads
+./data_collection/count_commands $cont4 $banner4
+sudo cp -r /var/lib/lxc/$cont4/rootfs/var/log/.downloads /home/student/$banner4/$cont4/downloads
 sudo lxc-stop -n $cont4
 sudo lxc-destroy -n $cont4
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables $cont5 $ip5 $port5
-sudo cp -r /var/lib/lxc/$cont5/rootfs/var/log/.downloads /home/student/$banner_type/$cont5/downloads
+./data_collection/count_commands $cont5 $banner5
+sudo cp -r /var/lib/lxc/$cont5/rootfs/var/log/.downloads /home/student/$banner5/$cont5/downloads
 sudo lxc-stop -n $cont5
 sudo lxc-destroy -n $cont5
