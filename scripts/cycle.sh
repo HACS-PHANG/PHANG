@@ -5,21 +5,33 @@ ext_ip=$2
 banner_type=$3 # nobanner or banner
 timestamp=$(date +%s)
 container_name="${container_name}${timestamp}"
+ips_file="ext_ip.txt"
 #cd /home/student/PHANG/scripts
+
+
+
+# we need to add deleting container and data upload
+
+
 # create new container
 mkdir /home/student/$banner_type/$container_name
 ./create_container.sh $container_name
 sleep 5
 echo "==============================================end of create container"
+
 # set up ssh
 ./ssh_setup.sh $container_name
 echo "=============================================== end of ssh setup"
+
 # set up command poisoning
 ./command_poisoning.sh $container_name
 echo "============================================end of command poisoning"
+
 # set up mitm
 ./working_iptables.sh $container_name $ext_ip 12345 $banner_type
 echo "================================================= end of working iptables"
+
+
 # set up banner + honey
 if [ $banner_type == "banner" ]
 then
@@ -27,6 +39,8 @@ then
 fi
 ./honey_set_up.sh $container_name
 echo "Success"
+
+
 #Tail on session log
 #old=$(tail -n 1 /home/student/$bannertype/$name/$name.log)
 #while [[ old == $(tail -n 1 /home/student/$bannertype/$name/$name.log) ]]
