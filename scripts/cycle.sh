@@ -1,41 +1,39 @@
 #!/bin/bash
-
 # Initializing these now as arguments but might need to update
 container_name=$1
-aws_ip=$2
-banner_type = $3 # nobanner or banner
+ext_ip=$2
+banner_type=$3 # nobanner or banner
 timestamp=$(date +%s)
-container_name = container_name + timestamp
-
-
-while :
-do
+container_name="${container_name}${timestamp}"
+#cd /home/student/PHANG/scripts
 # create new container
-./create_container $container_name
-
+mkdir /home/student/$banner_type/$container_name
+./create_container.sh $container_name
+sleep 5
+echo "==============================================end of create container"
 # set up ssh
-./ssh_setup $container_name
-
+./ssh_setup.sh $container_name
+echo "=============================================== end of ssh setup"
 # set up command poisoning
-./command_poisoning $container_name
-
+./command_poisoning.sh $container_name
+echo "============================================end of command poisoning"
 # set up mitm
-./iptables_recycle_untested $container_name $aws_ip
-
+./working_iptables.sh $container_name $ext_ip 12345 $banner_type
+echo "================================================= end of working iptables"
 # set up banner + honey
 if [ $banner_type == "banner" ]
 then
-./banner $container_name
+./banner.sh $container_name
 fi
-./honey_set_up $container_name
-
+./honey_set_up.sh $container_name
+echo "Success"
 #Tail on session log
-old=$(tail -n 1 /home/student/MITM/logs/session_streams)
-while [ old -eq $(tail -n 1 /home/student/MITM/logs/session_streams) ]
-do
-	sleep 1
-end
-sudo lxc-attach -n $name -- bash -c "(sudo crontab -l 2>/dev/null; echo '20 * * * * /usr/bin/pkill -KILL -u $user') | sudo crontab -"
-(sudo crontab -l 2>/dev/null; echo "*20 * * * * ./remove_attacker $container_name && ./data_upload $container_name && ./count_commands $container_name $banner_type && sudo lxc-stop -n $container_name && sudo lxc-destroy -n $container_name") | sudo crontab -
+#old=$(tail -n 1 /home/student/$bannertype/$name/$name.log)
+#while [[ old == $(tail -n 1 /home/student/$bannertype/$name/$name.log) ]]
+#do
+#	sleep 1
+#done
+#sudo lxc-attach -n $name -- bash -c "(sudo crontab -l 2>/dev/null; echo '20 * * * * /usr/bin/pkill -KILL -u $user') | sudo crontab -"
+#(sudo crontab -l 2>/dev/null; echo "*20 * * * * ./remove_attacker $container_name && ./data_upload $container_name && ./count_commands $container_name $banner_type && sudo lxc-stop -n $container_name && sudo lxc-destroy -n $container_name && ./cycle.sh $name 128.8.238.32 $banner_type") | sudo crontab -e
 
-end
+

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [[ $# -ne 3 ]]
+if [[ $# -ne 4 ]]
 then
-    echo "./iptables_recycle.sh [container name] [external ip] [port]"
+    echo "./iptables_recycle.sh [container name] [external ip] [port] [bannertype]"
     exit 1
 fi
 
@@ -21,7 +21,7 @@ sudo sysctl -w net.ipv4.ip_forward=1
 
 
 # Starts background mitm server
-sudo forever -l $mitm_path/$name.log --append start $mitm_path/mitm.js -n $name -i $ip -p $port --auto-access --auto-access-fixed 3 --debug
+sudo forever -l $mitm_path/$name.log --append start /home/student/MITM/mitm.js -n $name -i $ip -p $port --auto-access --auto-access-fixed 3 --debug
 #anything with .log is an mitm log.
 
 # Configures nat mappings
