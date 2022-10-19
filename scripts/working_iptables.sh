@@ -54,6 +54,9 @@ if [ $? -eq 1 ]
 then
     sudo iptables --table nat --insert POSTROUTING --source $ip --destination 0.0.0.0/0 --jump SNAT --to-source $2
 fi
-sudo lxc-attach -n "$1" -- bash -c "cd /etc/security && echo '*       hard    maxsyslogins    1' >> limits.conf" 
+
+sudo lxc-attach -n "$1" -- bash -c "cd /etc/security && echo '*       hard    maxsyslogins    1' >> limits.conf && echo 'root hard    maxlogins   1' >> limits.conf"
+
+#sudo lxc-attach -n "$1" -- bash -c "cd /etc && echo 'tty1' > securetty" 
 #Edit sshd_config to allow root login and block multiple connections
 #sudo lxc-attach -n "$1" -- bash -c "cd /etc/ssh && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' sshd_config && sed -i 's/#MaxSessions 10/MaxSessions 1/g' sshd_config && sed -i 's/#MaxStartups 6/MaxStartups 1/g' sshd_config && sudo systemctl restart ssh.service"
