@@ -80,3 +80,5 @@ sudo lxc-destroy -n $cont1
 #sudo cp -r /var/lib/lxc/$cont5/rootfs/var/log/.downloads /home/student/$banner5/$cont5/downloads
 #sudo lxc-stop -n $cont5
 #sudo lxc-destroy -n $cont5
+
+./randomize.sh
