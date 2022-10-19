@@ -1,7 +1,7 @@
 #!/bin/bash
-if [[ $# -ne 1 ]]
+if [[ $# -ne 2 ]]
 then
-  echo "./banner [container name]"
+  echo "./banner [container name] [banner type]"
   exit 1
 fi
 bannertype=$2
