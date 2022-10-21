@@ -55,7 +55,7 @@ sudo lxc-destroy -n $cont1
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables.sh $cont2 $ip2 $port2
-./data_collection/count_commands $cont2 $banner_2
+./data_collection/count_commands $cont2 $banner2
 sudo cp -r /var/lib/lxc/$cont2/rootfs/var/log/.downloads /home/student/$banner2/$cont2/downloads
 sudo lxc-stop -n $cont2
 sudo lxc-destroy -n $cont2
@@ -79,5 +79,7 @@ sudo lxc-destroy -n $cont4
 sudo cp -r /var/lib/lxc/$cont5/rootfs/var/log/.downloads /home/student/$banner5/$cont5/downloads
 sudo lxc-stop -n $cont5
 sudo lxc-destroy -n $cont5
+
+sleep 30
 
 ./randomize.sh
