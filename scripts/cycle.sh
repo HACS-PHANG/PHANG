@@ -21,7 +21,7 @@ mkdir /home/student/$banner_type/$container_name
 sleep 5
 echo "==============================================end of create container"
 
-sudo lxc-attach -n $container_name -- bash -c "echo \"PS1='bash>'\" >> ~/.bashrc && sudo source ~/.bashrc"
+#sudo lxc-attach -n $container_name -- bash -c "echo \"PS1='bash>'\" >> ~/.bashrc && sudo source ~/.bashrc"
 
 echo "================================================== changing bash prompt "
 
