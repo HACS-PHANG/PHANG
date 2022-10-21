@@ -21,10 +21,11 @@ mkdir /home/student/$banner_type/$container_name
 sleep 5
 echo "==============================================end of create container"
 
-sudo lxc-attach -n $container_name -- bash -c "echo \"PS1='bash>'\" >> ~/.bashrc && source ~/.bashrc"
+sudo lxc-attach -n $container_name -- bash -c "echo \"PS1='bash>'\" >> ~/.bashrc && sudo source ~/.bashrc"
 
 echo "================================================== changing bash prompt "
 
+sleep 5
 # set up ssh
 ./ssh_setup.sh $container_name
 echo "=============================================== end of ssh setup"
@@ -44,7 +45,9 @@ then
 ./banner.sh $container_name $banner_type
 fi
 ./honey_set_up.sh $container_name
-echo "Success"
+sleep 5
+./netdata.sh $container_name
+echo "Success ${container_name} ${banner_type}" >> /home/student/PHANG/scripts/ContainerLogs.txt
 
 
 #Tail on session log
