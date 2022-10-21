@@ -11,6 +11,9 @@ then
 elif [[ $bannertype == "MarylandPolice" ]]
 then
   bannertype="by the Maryland State Police IT Division"
+elif [[ $bannertype == "NoEntity" ]]
+then
+ bannertype="" 
 elif [[ $bannertype == "UMD_IT" ]]
 then
   bannertype="by the University of Maryland Department of IT"
