@@ -45,7 +45,7 @@ echo $ip1
 ./cycle.sh $cont4 $ip4 $banner4 $port4
 ./cycle.sh $cont5 $ip5 $banner5 $port5
 
-sleep 10m
+sleep 60m
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables.sh $cont1 $ip1 $port1
 sudo cp -r /var/lib/lxc/$cont1/rootfs/var/log/.downloads /home/student/$banner1/$cont1/downloads
