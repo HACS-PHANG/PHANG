@@ -45,6 +45,7 @@ sudo lxc-attach -n $1 -- bash -c "chmod +x $wget_path"
 
 sudo lxc-attach -n $1 -- bash -c "echo \#\!/bin/bash >> $curl_path"
 sudo lxc-attach -n $1 -- bash -c "echo 'cd /var/log/.downloads' >> $curl_path"
+sudo lxc-attach -n $1 -- bash -c "chmod a+w /var/log/.downloads"
 sudo lxc-attach -n $1 -- bash -c "echo 'curl_real \"\$@\" -q /dev/null 2>&1' >> $curl_path"
 sudo lxc-attach -n $1 -- bash -c "echo 'cd -' >> $curl_path"
 sudo lxc-attach -n $1 -- bash -c "echo 'curl_real \"\$@\"' >> $curl_path"
