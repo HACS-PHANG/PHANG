@@ -55,27 +55,27 @@ sudo lxc-destroy -n $cont1
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables.sh $cont2 $ip2 $port2
-./data_collection/count_commands $cont2 $banner2
+./data_collection/count_commands.sh $cont2 $banner2
 sudo cp -r /var/lib/lxc/$cont2/rootfs/var/log/.downloads /home/student/$banner2/$cont2/downloads
 sudo lxc-stop -n $cont2
 sudo lxc-destroy -n $cont2
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables.sh $cont3 $ip3 $port3
-./data_collection/count_commands $cont3 $banner3
+./data_collection/count_commands.sh $cont3 $banner3
 sudo cp -r /var/lib/lxc/$cont3/rootfs/var/log/.downloads /home/student/$banner3/$cont3/downloads
 sudo lxc-stop -n $cont3
 sudo lxc-destroy -n $cont3
 
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables.sh $cont4 $ip4 $port4
-./data_collection/count_commands $cont4 $banner4
+./data_collection/count_commands.sh $cont4 $banner4
 sudo cp -r /var/lib/lxc/$cont4/rootfs/var/log/.downloads /home/student/$banner4/$cont4/downloads
 sudo lxc-stop -n $cont4
 sudo lxc-destroy -n $cont4
 # Cleaning up iptables + container <-- need to move based on what's calling cycle.sh
 ./remove_iptables.sh $cont5 $ip5 $port5
-./data_collection/count_commands $cont5 $banner5
+./data_collection/count_commands.sh $cont5 $banner5
 sudo cp -r /var/lib/lxc/$cont5/rootfs/var/log/.downloads /home/student/$banner5/$cont5/downloads
 sudo lxc-stop -n $cont5
 sudo lxc-destroy -n $cont5
