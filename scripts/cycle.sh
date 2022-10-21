@@ -45,8 +45,6 @@ then
 ./banner.sh $container_name $banner_type
 fi
 ./honey_set_up.sh $container_name
-sleep 5
-./netdata.sh $container_name
 echo "Success ${container_name} ${banner_type}" >> /home/student/PHANG/scripts/ContainerLogs.txt
 
 
